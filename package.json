@@ -17,9 +17,12 @@
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "babel-plugin-macros": "^2.8.0",
+    "drei": "^0.0.60",
     "next": "9.4.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-three-fiber": "^4.2.10",
+    "three": "^0.117.1",
     "twin.macro": "^1.4.1"
   },
   "devDependencies": {
@@ -32,6 +35,8 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.4",
     "husky": "^4.2.5",
+    "next-compose-plugins": "^2.2.0",
+    "next-transpile-modules": "^3.3.0",
     "prettier": "2.0.5",
     "pretty-quick": "^2.0.1",
     "typescript": "^3.9.5"
