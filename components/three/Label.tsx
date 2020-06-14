@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Text } from "drei";
-import { useFrame, useResource } from "react-three-fiber";
+import { useFrame } from "react-three-fiber";
 import { Mesh } from "three";
 import { PropsOf } from "types/helpers";
 
 const Label: React.FC<PropsOf<typeof Text>> = (props) => {
-  const [ref, text] = useResource<Mesh>();
+  // useRef is used instead of useResource due to useResource being unreliable when Text rerenders
+  const ref = useRef<Mesh>();
 
   useFrame(({ camera }) => {
-    text.lookAt(camera.position);
-    text.rotation.copy(camera.rotation);
+    ref.current?.lookAt(camera.position);
+    ref.current?.rotation.copy(camera.rotation);
   });
 
-  return <Text ref={ref} color="black" {...props} />;
+  // The key workaround here ensures that the bounding box size is properly recomputed when the label contents
+  return (
+    <Text ref={ref} color="black" key={String(props.children)} {...props} />
+  );
 };
 
 export default Label;
