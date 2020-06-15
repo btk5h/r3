@@ -5,7 +5,7 @@ import { Vector3 } from "three";
 import Label from "components/three/Label";
 
 type LabeledPointProps = {
-  position: Vector3;
+  position?: Vector3 | [number, number, number];
   color: R3F.Color;
 };
 
