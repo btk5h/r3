@@ -67,14 +67,14 @@ function createChartStore(
 let storeInstance: ChartStoreInstance;
 
 export function getChartStore(
-  initialState?: Partial<ChartStoreState>
+  initialStateFunction: () => Partial<ChartStoreState> = () => ({})
 ): ChartStoreInstance {
   if (!process.browser) {
-    return createChartStore(initialState);
+    return createChartStore(initialStateFunction());
   }
 
   if (!storeInstance) {
-    storeInstance = createChartStore(initialState);
+    storeInstance = createChartStore(initialStateFunction());
   }
 
   return storeInstance;
