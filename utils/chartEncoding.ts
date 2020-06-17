@@ -30,6 +30,32 @@ function decodePositionVector(num: string): [number, number, number] {
   return [x, y, z];
 }
 
+function split(str: string): string[] {
+  const parts = [];
+
+  let workingString = "";
+  let escape = false;
+  for (const c of str) {
+    if (escape) {
+      workingString += c;
+      escape = false;
+    } else {
+      if (c === "!") {
+        escape = true;
+      } else if (c === ".") {
+        parts.push(workingString);
+        workingString = "";
+      } else {
+        workingString += c;
+      }
+    }
+  }
+
+  parts.push(workingString);
+
+  return parts;
+}
+
 export function encodeChart(chart: ChartStoreState) {
   const parts = [
     encodeString(chart.axisLabels.xPlus),
@@ -50,7 +76,7 @@ export function encodeChart(chart: ChartStoreState) {
 
 export function decodeChart(str: string): Partial<ChartStoreState> {
   try {
-    const parts = str.split(/(?<!!)(?:!!)*\./);
+    const parts = split(str);
     const chart: ChartStoreState = {
       axisLabels: {
         xPlus: decodeString(parts[0]),
